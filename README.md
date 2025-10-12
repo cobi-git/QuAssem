@@ -9,7 +9,7 @@ This project explores how **Grover’s quantum search** can accelerate parts of 
 
 ---
 
-## 📁 Project Layout
+## Project Layout
 
 ```text
 .
@@ -27,20 +27,14 @@ This project explores how **Grover’s quantum search** can accelerate parts of 
 └─ README.md
 ```
 
-> Tip: If you prefer a collapsible tree on GitHub, wrap the tree block with `<details><summary>Project tree</summary> ... </details>`.
-
 ---
 
-## ⚙️ Installation
+## Installation
 
 ```bash
 # clone
 git clone https://github.com/cobi-git/QuAssem.git
 cd QuAssem
-
-# (optional) virtual env
-python3 -m venv .venv
-source .venv/bin/activate
 
 # install deps
 pip install --upgrade pip
@@ -63,15 +57,7 @@ Outputs are written to `res/`.
 
 ---
 
-## 🧠 Concepts (very brief)
-
-- **k-mer assembly**: reconstruct a sequence from overlapping length-K substrings.  
-- **Grover’s algorithm**: quantum O(√N) search for marked items; here, used to amplify valid overlap candidates.  
-- **Hybrid Grover-DP**: quantum search proposes candidates; classical DP scoring validates/extends contigs.
-
----
-
-## 🪐 Requirements
+## Requirements
 
 - Python ≥ 3.10
 - Qiskit ≥ 1.0
