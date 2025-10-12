@@ -1,10 +1,10 @@
-# 🧬 QuAssem — Quantum Assembler (Classical + Grover)
+# 🧬 QuAssem — Quantum Assembler (Grover)
 
 A proof-of-concept assemblers for **k-mer overlap assembly**:
 
 - **bin/grover_assembler.py** — Grover-accelerated DP assembler using **Qiskit Aer**
 
-This project explores how **Grover’s quantum search** can accelerate parts of genome assembly by amplifying overlap candidates that are then validated by classical dynamic programming (DP).
+This project explores how **Grover’s quantum search** can accelerate parts of genome assembly by amplifying overlap candidates.
 
 ---
 
