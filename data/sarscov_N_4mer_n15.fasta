@@ -1,0 +1,30 @@
+>seq_1 start=1 end=8 len=8 win=8 olap=4
+ATGTCTGA
+>seq_2 start=5 end=12 len=8 win=8 olap=4
+CTGATAAT
+>seq_3 start=9 end=16 len=8 win=8 olap=4
+TAATGGAC
+>seq_4 start=13 end=20 len=8 win=8 olap=4
+GGACCCCA
+>seq_5 start=17 end=24 len=8 win=8 olap=4
+CCCAAAAT
+>seq_6 start=21 end=28 len=8 win=8 olap=4
+AAATCAGC
+>seq_7 start=25 end=32 len=8 win=8 olap=4
+CAGCGAAA
+>seq_8 start=29 end=36 len=8 win=8 olap=4
+GAAATGCA
+>seq_9 start=33 end=40 len=8 win=8 olap=4
+TGCACCCC
+>seq_10 start=37 end=44 len=8 win=8 olap=4
+CCCCGCAT
+>seq_11 start=41 end=48 len=8 win=8 olap=4
+GCATTACG
+>seq_12 start=45 end=52 len=8 win=8 olap=4
+TACGTTTG
+>seq_13 start=49 end=56 len=8 win=8 olap=4
+TTTGGTGG
+>seq_14 start=53 end=60 len=8 win=8 olap=4
+GTGGACCC
+>seq_15 start=57 end=64 len=8 win=8 olap=4
+ACCCTCAG
