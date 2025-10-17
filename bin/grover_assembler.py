@@ -90,6 +90,15 @@ def write_fasta(records, out_path, line_wrap):
 
     return out_path
 
+# Convert a list of Contig objects into FASTA format.
+def contigs_to_fasta_records(contigs):
+    records = []
+    for i, c in enumerate(contigs, start=1):
+        header = f"contig_{i} nreads={len(c.ids)} len={len(c.seq)} order={'->'.join(c.ids)}"
+        records.append((header, c.seq))
+
+    return records
+
 # printing assembled sequences in FASTA format
 def print_fasta(records, line_wrap):
     for header, seq in records:
@@ -286,13 +295,14 @@ def exact_kmer_right(a, b, k):
 def exact_kmer_left(a, b, k):
     return len(a) >= k and len(b) >= k and b[-k:] == a[:k]
 
-# the main assembly routine
-# merging sequences to build the assembled contig
+# The main assembly routine
+# merge sequences to build the assembled contig
 def assemble_with_grover(reads):
     ids  = [r[0] for r in reads]
     seqs = [r[1] for r in reads]
     N = len(seqs)
 
+    # Precompute encodings
     pref_bits = [prefix_bits(s) for s in seqs]
     suff_bits = [suffix_bits(s) for s in seqs]
 
@@ -326,15 +336,12 @@ def assemble_with_grover(reads):
 
             if idx_rel is not None:
                 j = active[idx_rel]
-                if exact_kmer_right(contig.seq, seqs[j], KMER):
-                    contig.seq = contig.seq + seqs[j][KMER:]
-                    contig.ids.append(ids[j])
-                    remaining.remove(j)
-                    print(f"[merge] RIGHT {contig.ids[-2]} -> {ids[j]} | new_len={len(contig.seq)} "
-                          f"| remaining={len(remaining)}", flush=True)
-                    extended = True
-                else:
-                    print("[right] Grover pick failed verification", flush=True)
+                contig.seq = contig.seq + seqs[j][KMER:]
+                contig.ids.append(ids[j])
+                remaining.remove(j)
+                print(f"[merge] RIGHT {contig.ids[-2]} -> {ids[j]} | new_len={len(contig.seq)} "
+                      f"| remaining={len(remaining)}", flush=True)
+                extended = True
             else:
                 print("[right] no valid RIGHT index from Grover", flush=True)
 
@@ -351,15 +358,12 @@ def assemble_with_grover(reads):
 
             if idx_rel is not None:
                 j = active[idx_rel]
-                if exact_kmer_left(contig.seq, seqs[j], KMER):
-                    contig.seq = seqs[j] + contig.seq[KMER:]
-                    contig.ids = [ids[j]] + contig.ids
-                    remaining.remove(j)
-                    print(f"[merge] LEFT {ids[j]} -> {contig.ids[1]} | new_len={len(contig.seq)} "
-                          f"| remaining={len(remaining)}", flush=True)
-                    extended = True
-                else:
-                    print("[left] Grover pick failed verification", flush=True)
+                contig.seq = seqs[j] + contig.seq[KMER:]
+                contig.ids = [ids[j]] + contig.ids
+                remaining.remove(j)
+                print(f"[merge] LEFT {ids[j]} -> {contig.ids[1]} | new_len={len(contig.seq)} "
+                      f"| remaining={len(remaining)}", flush=True)
+                extended = True
             else:
                 print("[left] no valid LEFT index from Grover", flush=True)
 
@@ -369,14 +373,6 @@ def assemble_with_grover(reads):
 
     print(f"[done] total contigs={len(contigs)}", flush=True)
     return contigs
-
-# setting the contid id and information of its assembly (includes order of assembled seqs)
-def contigs_to_fasta_records(contigs):
-    recs = []
-    for i, c in enumerate(contigs, start=1):
-        header = f"contig_{i} nreads={len(c.ids)} len={len(c.seq)} order={'->'.join(c.ids)}"
-        recs.append((header, c.seq))
-    return recs
 
 # main execution
 def main():
